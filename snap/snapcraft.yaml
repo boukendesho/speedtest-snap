@@ -1,0 +1,30 @@
+name: speedtest
+base: core24
+version: '1.2.0'
+license: Proprietary
+summary: Unofficial Ookla speedtest cli app
+description: |
+  A wrapper around the official speedtest cli tool by Ookla.
+  
+  **speedtest** is an application that measures the latency, jitter, packet loss, download bandwidth, 
+  and upload bandwidth of the network connection between the client and a nearby Speedtest Server.
+
+platforms:
+  amd64:
+
+grade: stable
+confinement: strict
+
+apps:
+  speedtest:
+    command: speedtest
+    plugs:
+      - home
+      - network
+      - network-bind
+
+parts:
+  speedtest:
+    plugin: dump
+    source: https://install.speedtest.net/app/cli/ookla-speedtest-${SNAPCRAFT_PROJECT_VERSION}-linux-x86_64.tgz
+    source-type: tar
