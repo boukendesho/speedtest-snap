@@ -3,7 +3,7 @@
 
 [Speedtest by Ookla](https://www.speedtest.net/) 
 
-This is an unofficial Linux desktop client for speedtest, that works as a wrapper around the official cli tool.
+This is an unofficial snap cli for speedtest, that works as a wrapper around the official cli tool.
   
 ### Authors
 
