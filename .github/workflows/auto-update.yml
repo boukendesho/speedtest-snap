@@ -11,21 +11,21 @@ jobs:
     steps:
       - name: install latest binary from official PPA
         id: upstream
-	run: |
-	  sudo apt-get install curl
-	  curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
-	  sudo apt-get install speedtest
-	  upstream_version=$(speedtest --version | head -n 1 | awk '{print $4}' | cut -c -5)
-	  echo "version=$upstream_version" >> $GITHUB_OUTPUT
+        run: |
+          sudo apt-get install curl
+          curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
+          sudo apt-get install speedtest
+          upstream_version=$(speedtest --version | head -n 1 | awk '{print $4}' | cut -c -5)
+          echo "version=$upstream_version" >> $GITHUB_OUTPUT
 
       - name: show upstream version
         run: |
-	  upstream_version=${{ steps.upstream.outputs.version }}
+          upstream_version=${{ steps.upstream.outputs.version }}
           if [ -z $upstream_version ]; then
             exit 1
           else
-	    echo "Upstream version is $upstream_version"
-	  fi
+            echo "Upstream version is $upstream_version"
+          fi
       
       - name: Checkout this repo
         uses: actions/checkout@v4
@@ -49,7 +49,7 @@ jobs:
       - name: Commit changes
         if: steps.update.outcome == 'success'
         run: |
-	  set -x
+          set -x
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
