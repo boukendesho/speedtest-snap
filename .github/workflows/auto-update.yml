@@ -27,31 +27,95 @@ jobs:
             echo "Upstream version is $upstream_version"
           fi
       
-      - name: Checkout this repo
+      - name: Checkout this repo on master(amd64)
         uses: actions/checkout@v4
+        with:
+          ref: master
       
-      - name: get snap current version
-        id: current
+      - name: get snap current amd64 version
+        id: current_amd64
         uses: mikefarah/yq@master
         with:
           cmd: yq '.version' 'snap/snapcraft.yaml'
 
-      - name: show snap current version
-        run: echo "Current version is ${{ steps.current.outputs.result }}"
+      - name: show snap current amd64 version
+        run: echo "Current version is ${{ steps.current_amd64.outputs.result }}"
 
       - name: update to upstream's version number
-        id: update
-        if: steps.upstream.outputs.version != steps.current.outputs.result
+        id: update_amd64
+        if: steps.upstream.outputs.version != steps.current_amd64.outputs.result
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.version = "${{ steps.upstream.outputs.version }}"' 'snap/snapcraft.yaml'
           
-      - name: Commit changes
-        if: steps.update.outcome == 'success'
+      - name: Commit changes on amd64
+        if: steps.update_amd64.outcome == 'success'
         run: |
           set -x
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "update snapcraft.yaml to version ${{ steps.upstream.outputs.version }}"
+          git push
+
+      - name: Checkout this repo on arm64
+        uses: actions/checkout@v4
+        with:
+          ref: arm64
+      
+      - name: get snap current arm64 version
+        id: current_arm64
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '.version' 'snap/snapcraft.yaml'
+
+      - name: show snap current arm64 version
+        run: echo "Current version is ${{ steps.current_arm64.outputs.result }}"
+
+      - name: update to upstream's version number
+        id: update_arm64
+        if: steps.upstream.outputs.version != steps.current_arm64.outputs.result
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.version = "${{ steps.upstream.outputs.version }}"' 'snap/snapcraft.yaml'
+          
+      - name: Commit changes on arm64
+        if: steps.update_arm64.outcome == 'success'
+        run: |
+          set -x
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "update snapcraft.yaml to version ${{ steps.upstream.outputs.version }}"
+          git push
+
+      - name: Checkout this repo on armhf
+        uses: actions/checkout@v4
+        with:
+          ref: armhf
+      
+      - name: get snap current armhf version
+        id: current_armhf
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '.version' 'snap/snapcraft.yaml'
+
+      - name: show snap current armhf version
+        run: echo "Current version is ${{ steps.current_armhf.outputs.result }}"
+
+      - name: update to upstream's version number
+        id: update_armhf
+        if: steps.upstream.outputs.version != steps.current_armhf.outputs.result
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.version = "${{ steps.upstream.outputs.version }}"' 'snap/snapcraft.yaml'
+          
+      - name: Commit changes on armhf
+        if: steps.update_armhf.outcome == 'success'
+        run: |
+          set -x
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add .
           git commit -m "update snapcraft.yaml to version ${{ steps.upstream.outputs.version }}"
           git push
