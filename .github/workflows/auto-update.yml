@@ -51,7 +51,6 @@ jobs:
       - name: Commit changes on amd64
         if: steps.update_amd64.outcome == 'success'
         run: |
-          set -x
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
@@ -82,7 +81,6 @@ jobs:
       - name: Commit changes on arm64
         if: steps.update_arm64.outcome == 'success'
         run: |
-          set -x
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
@@ -113,7 +111,6 @@ jobs:
       - name: Commit changes on armhf
         if: steps.update_armhf.outcome == 'success'
         run: |
-          set -x
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
