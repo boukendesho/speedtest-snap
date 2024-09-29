@@ -11,6 +11,8 @@ description: |
 
 platforms:
   amd64:
+  arm64:
+  armhf:
 
 grade: stable
 confinement: strict
@@ -26,5 +28,8 @@ apps:
 parts:
   speedtest:
     plugin: dump
-    source: https://install.speedtest.net/app/cli/ookla-speedtest-${SNAPCRAFT_PROJECT_VERSION}-linux-x86_64.tgz
+    source: 
+      - on amd64: https://install.speedtest.net/app/cli/ookla-speedtest-${SNAPCRAFT_PROJECT_VERSION}-linux-x86_64.tgz
+      - on arm64: https://install.speedtest.net/app/cli/ookla-speedtest-${SNAPCRAFT_PROJECT_VERSION}-linux-aarch64.tgz
+      - on armhf: https://install.speedtest.net/app/cli/ookla-speedtest-${SNAPCRAFT_PROJECT_VERSION}-linux-armhf.tgz
     source-type: tar
