@@ -21,7 +21,6 @@ apps:
   speedtest:
     command: speedtest
     plugs:
-      - home
       - network
       - network-bind
 
